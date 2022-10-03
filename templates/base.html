@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Define the app title shown in the browser tab/window title. -->
+    <title>To-Do App</title>
+    <!-- Import the semantic-ui styles and scripts to make the interface pretty. -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <style>
+        /* Define custom styles beyond those from the tutorial.*/
+        .task-complete .task-title {
+            /* Render a strikethrough for completed task names. */
+            text-decoration: line-through;
+        }
+        .task-complete .task-update {
+            /* Show a "pressed-in" fake checkbox for completed tasks. */
+            background-color: white !important;
+            color: #21ba45 !important;
+            border: 3px solid #21ba45 !important;
+        }
+        .task-incomplete .task-update {
+            /* Show a "checked" fake checkbox for incomplete tasks. */
+            background-color: white !important;
+            color: white !important;
+            border: 3px solid #21ba45 !important;
+        }
+        .ui.button {
+            padding: 7px 9px !important;
+        }
+    </style>
+</head>
+<body>
+    <div style="margin-top: 50px;" class="ui container">
+        <!-- Render the app name in a large heading element. -->
+        <h1 class="ui center aligned header">To-Do App</h1>
+        <!-- At the top of the page, render the form to create a new task. -->
+        <!-- The form submission should trigger a POST request to http://localhost:5000/add where the add() handler will run. -->
+        <form class="ui form" action="/add" method="post">
+            <div class="field">
+                <label>Todo Title</label>
+                <!-- The form has an input named "title" which takes the task name. -->
+                <input type="text" name="title" placeholder="Enter Todo..."><br>
+            </div>
+            <!-- The form submission should proceed after the user has clicked the Add button or pressed Enter. -->
+            <button class="ui blue button" type="submit">Add</button>
+        </form>
+        <!-- Render a horizontal line to separate the form from the todo list. -->
+        <hr>
+        <!-- Use the templating syntax to iterate over tasks. -->
+        {% for todo in todo_list %}
+            <!-- Render a <div/> element with a different class name
+                depending on completeness status, to enable styling
+                completed vs incomplete tasks differently.
+            -->
+            {% if todo.complete == False %}
+            <div class="ui segment task-incomplete">
+            {% else %}
+            <div class="ui segment task-complete">
+            {% endif %}
+                <!-- Render each task with its ID and title. -->
+                <p class="ui big header">
+                    <!-- Render a fake checkbox which toggles by navigating to /update/{task_id}. -->
+                    <a class="ui green button task-update" href="/update/{{ todo.id }}">&#10003;</a>
+                    <!-- Render the task name. -->
+                    <span class="task-title">{{ todo.title }}</span>
+                    <!-- Render the task delete button. -->
+                    <a class="ui gray button" href="/delete/{{ todo.id }}">Delete</a>
+                </p>
+
+                
+            </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

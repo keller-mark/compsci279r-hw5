@@ -17,5 +17,4 @@ Open http://localhost:5000
 
 ## Resources
 
-To create this todo list, I used the tutorial at https://www.python-engineer.com/posts/flask-todo-app/ and the following resources:
-- 
+To create this todo list, I used the tutorial at https://www.python-engineer.com/posts/flask-todo-app/
