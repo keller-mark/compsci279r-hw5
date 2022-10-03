@@ -1,0 +1,5 @@
+name: compsci279r-hw5
+dependencies:
+- python==3.8
+- flask
+- flask-sqlalchemy
