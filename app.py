@@ -21,6 +21,12 @@ class Todo(db.Model):
     # Each todo item has a completed boolean flag.
     complete = db.Column(db.Boolean)
 
+# Need the app context when creating the database.
+# Reference: https://stackoverflow.com/a/60879370
+with app.app_context():
+    # Create the database before running the app.
+    db.create_all()
+
 # Execute the home() function upon navigation to http://localhost:5000/
 @app.route("/")
 def home():
@@ -74,8 +80,6 @@ def delete(todo_id):
 # Run the following code when the script is invoked
 # from the command line.
 if __name__ == "__main__":
-    # Create the database before running the app.
-    db.create_all()
     # Start the flask web server,
     # so that it can listen on the routes defined above.
     app.run(debug=True)
